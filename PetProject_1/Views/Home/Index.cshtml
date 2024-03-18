@@ -1,0 +1,55 @@
+﻿@model PetProject_1.Models.SelectGlobalModulesPortlet
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<form method="post">
+    <div class="form-horizontal">
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UsingUser, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("UsingUserId", Model.UsingUser as SelectList, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+
+        <table class="table">
+            <tr>
+                <th>
+                    Select <br />
+                </th>
+                <th>
+                    Name <br />
+                </th>
+                <th>
+                    FullName <br />
+                </th>
+            </tr>
+
+           
+            @for (int i=0; i<Model.GlobalModules.Count; i++)
+            {
+                <tr>
+                    <input type="hidden" name="item[@i].Id" value=@Model.GlobalModules.ToList()[i].Id />
+                    <td>
+                        @*@Html.EditorFor(modelItem => @Model.GlobalModules.ToList()[i].Selected)*@
+                        <input class="check-box" data-val="true" data-val-required="Требуется поле Selected." 
+                               name="item[@i].Selected" type="checkbox" value="true">
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @Model.GlobalModules.ToList()[i].Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => @Model.GlobalModules.ToList()[i].UsingUser.FullName)
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
